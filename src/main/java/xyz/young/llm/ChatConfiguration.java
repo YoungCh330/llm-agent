@@ -7,14 +7,15 @@ import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import xyz.young.llm.tools.SearchTool;
 
 @Configuration
 public class ChatConfiguration {
 
     @Bean
-    public ChatClient chatClient(ChatModel chatModel, ChatMemory chatMemory) {
-        return ChatClient.builder(chatModel).defaultSystem("你是一个聊天机器人，请使用{voice}的声音回答问题")
-            .defaultAdvisors(MessageChatMemoryAdvisor.builder(chatMemory).build()).build();
+    public ChatClient chatClient(ChatModel chatModel) {
+        //defaultAdvisors(MessageChatMemoryAdvisor.builder(chatMemory).build()).
+        return ChatClient.builder(chatModel).defaultTools(new SearchTool()).build();
     }
 
     @Bean
