@@ -20,10 +20,6 @@ public class SearchTool {
     private static final String URL = "https://serpapi.com/search.json";
     private static final String API_KEY = "008697c270fde6498083fcf20733c0f84d755a5aea9e42a4e36d4d2c8f7f1a92";
 
-    static void main(String[] args) {
-        SearchTool searchTool = new SearchTool();
-        System.out.println(searchTool.search("最新款的英伟达显卡型号是什么？"));
-    }
 
     @Tool(description = "一个基于SerpApi的网页搜索引擎工具,它会智能地解析搜索结果，优先返回直接答案或知识图谱信息。")
     public String search(@ToolParam(description = "搜索的内容") String query) {
@@ -32,8 +28,8 @@ public class SearchTool {
         builder.addQueryParameter("api_key", API_KEY);
         builder.addQueryParameter("engine", "google");
         builder.addQueryParameter("q", query);
-        builder.addQueryParameter("gl","cn");
-        builder.addQueryParameter("hl","zh-cn");
+        builder.addQueryParameter("gl", "cn");
+        builder.addQueryParameter("hl", "zh-cn");
         Request request = new Request.Builder().url(builder.build()).build();
         try (Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) {
